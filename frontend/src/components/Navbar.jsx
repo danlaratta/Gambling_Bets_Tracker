@@ -49,7 +49,11 @@ const NavList = styled.div`
 const NavItem = styled(Link)`
     color: #fff;
     text-decoration: none;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+
+    &:hover{
+        color: gold;
+    }
 `
 
 const AuthContainer = styled.div`
@@ -59,7 +63,7 @@ const AuthContainer = styled.div`
 
 const AuthText = styled.span`
     color: #fff;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin-right: 1rem;
     padding-right: 1rem;
 `
