@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 import LogoImg from '../assets/logo.png'
 
 
 const Container = styled.div`
-    background-color: rgba(0, 0, 0, 0);
     width: 100%;
-    position: absolute;
-    top: 0;
+    background-color: ${props => props.bgColor ? "#000" : "rbga(0, 0, 0, 0)"};
+    position: fixed;
     z-index: 10;
 `
 
@@ -20,6 +19,8 @@ const NavContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
 `
 
 const LeftSection = styled.div`
@@ -34,9 +35,22 @@ const RightSection = styled.div`
     width: 100%;
 `
 
+const LogoContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+`
+
 const Logo = styled.img`
     width: 8rem;
     height: 8rem;
+    padding-right: 2rem;
+`
+
+const LogoSpan = styled.span`
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
 `
 
 const NavList = styled.div`
@@ -70,12 +84,25 @@ const AuthText = styled.span`
 
 
 const Navbar = () => {
+    const [bgColor, setBgColor] = useState(false)
+
+    const changeBgColor = () => {
+        window.scrollY >= 100 ? setBgColor(true) : setBgColor(false)
+    }
+
+    window.addEventListener('scroll', changeBgColor)
+    console.log(bgColor)
+
     return (
-        <Container>
+        // <Container style={{backgroundColor: bgColor ? 'red' : 'blue'}}>
+        <Container bgColor={bgColor}>
             <Wrapper>
                 <NavContainer>
                     <LeftSection>
-                        <Link to='/'> <Logo src={LogoImg} /> </Link>
+                        <LogoContainer>
+                            <Logo src={ LogoImg } />
+                            <LogoSpan> GamBull Tracker </LogoSpan>
+                        </LogoContainer>
                     </LeftSection>
 
                     <CenterSection>

@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import HeroImg from '../assets/HeroImg.jpg'
+import BetCard from '../components/BetCard'
 
 const Container = styled.div`
-    
+    width: 100%;
+    top: 0;
 `
 
 const Wrapper = styled.div`
@@ -17,14 +19,15 @@ const HeroImage = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    z-index: -6;
 `
 
 const HeroContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.75);
     width: 100%;
     height: 100vh;
-    position: absolute;
     top: 0;
+    position: absolute;
 `
 
 const HeroSection = styled.div`
@@ -32,7 +35,7 @@ const HeroSection = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    margin-top: 15%;
+    margin-top: 18%;
     margin-left: 25%;
 `
 
@@ -63,6 +66,29 @@ const BetBtn = styled.button`
     }
 `
 
+const BodyContainer = styled.div`
+    width: 100%;
+`
+
+const BodyWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem;
+`
+
+const BodyTitle = styled.h2`
+    font-size: 4rem;
+`
+
+const CardsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    background-color: red;
+`
+
 
 const Home = () => {
     return (
@@ -77,7 +103,18 @@ const Home = () => {
                         <BetBtn> Add Bet </BetBtn>
                     </HeroSection>
                 </HeroContainer>
-              
+
+                <BodyContainer>
+                    <BodyWrapper>
+                        <BodyTitle> Recent Bets </BodyTitle>
+
+                        <CardsContainer>
+                            <BetCard />
+                            <BetCard />
+                        </CardsContainer>
+                    </BodyWrapper>
+                </BodyContainer>
+
             </Wrapper>
         </Container>
     )
