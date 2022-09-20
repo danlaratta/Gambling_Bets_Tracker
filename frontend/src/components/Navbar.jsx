@@ -100,7 +100,7 @@ const Navbar = () => {
                 <NavContainer>
                     <LeftSection>
                         <LogoContainer>
-                            <Logo src={ LogoImg } />
+                            <Link to='/'> <Logo src={ LogoImg } /> </Link>
                             <LogoSpan> GamBull Tracker </LogoSpan>
                         </LogoContainer>
                     </LeftSection>

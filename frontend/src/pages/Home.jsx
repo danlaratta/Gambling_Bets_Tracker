@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import HeroImg from '../assets/HeroImg.jpg'
 import BetCard from '../components/BetCard'
+import Hero from '../components/Hero'
 
 const Container = styled.div`
     width: 100%;
@@ -22,50 +23,6 @@ const HeroImage = styled.div`
     z-index: -6;
 `
 
-const HeroContainer = styled.div`
-    background-color: rgba(0, 0, 0, 0.75);
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    position: absolute;
-`
-
-const HeroSection = styled.div`
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    margin-top: 18%;
-    margin-left: 25%;
-`
-
-const Title = styled.span`
-    font-size: 7rem;
-    font-weight: bold;
-    color: gold;
-`
-
-const Desc = styled.span`
-    font-size: 3rem;
-    font-weight: 500;
-    color: #fff;
-`
-
-const BetBtn = styled.button`
-    color: #fff;
-    width: 12%;
-    border: none;
-    background-color: #000;
-    padding: 1.5rem 0rem;
-    font-size: 1.8rem;
-    border-radius: 1rem;
-    cursor: pointer;
-
-    &:hover{
-        color: gold;
-    }
-`
-
 const BodyContainer = styled.div`
     width: 100%;
 `
@@ -74,7 +31,7 @@ const BodyWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5rem;
+    padding: 5rem 0rem;
 `
 
 const BodyTitle = styled.h2`
@@ -86,7 +43,6 @@ const CardsContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5rem;
-    background-color: red;
 `
 
 
@@ -95,20 +51,17 @@ const Home = () => {
         <Container>
             <Wrapper>
                 <HeroImage />
-
-                <HeroContainer>
-                    <HeroSection>
-                        <Title> GamBull Tracker </Title>
-                        <Desc> Keep Track of All your Sports Bets </Desc>
-                        <BetBtn> Add Bet </BetBtn>
-                    </HeroSection>
-                </HeroContainer>
+                <Hero 
+                    title='GamBull Tracker' 
+                    desc='Keep Track of All your Sports Bets'
+                />
 
                 <BodyContainer>
                     <BodyWrapper>
                         <BodyTitle> Recent Bets </BodyTitle>
 
                         <CardsContainer>
+                            <BetCard />
                             <BetCard />
                             <BetCard />
                         </CardsContainer>
