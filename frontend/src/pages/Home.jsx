@@ -31,11 +31,13 @@ const BodyWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5rem 0rem;
+    padding: 8rem 0rem;
 `
 
-const BodyTitle = styled.h2`
+const BodyTitle = styled.span`
     font-size: 4rem;
+    font-weight: bold;
+    padding-bottom: 4rem;
 `
 
 const CardsContainer = styled.div`

@@ -2,14 +2,6 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 
-const Container = styled.div`
-    
-`
-
-const Wrapper = styled.div`
-    
-`
-
 const HeroContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.75);
     width: 100%;
@@ -59,17 +51,14 @@ const BetBtn = styled(Link)`
 
 const Hero = ({title, desc}) => {
     return (
-        <Container>
-            <Wrapper>
-                <HeroContainer>
-                    <HeroSection>
-                        <Title> {title} </Title>
-                        <Desc> {desc} </Desc>
-                        <BetBtn to='/new-bet'> Add Bet </BetBtn>
-                    </HeroSection>
-                </HeroContainer>
-            </Wrapper>
-        </Container>
+        <HeroContainer>
+            <HeroSection>
+                <Title> {title} </Title>
+                <Desc> {desc} </Desc>
+                <BetBtn to='/new-bet'> Add Bet </BetBtn>
+            </HeroSection>
+        </HeroContainer>
+          
     )
 }
 

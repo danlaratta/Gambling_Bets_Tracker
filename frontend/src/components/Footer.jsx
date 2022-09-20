@@ -32,10 +32,11 @@ const Logo = styled.img`
     padding-right: 2rem;
 `
 
-const LogoSpan = styled.span`
+const LogoLink = styled(Link)`
     color: #fff;
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: bold;
+    text-decoration: none;
 `
 
 const NavList = styled.div`
@@ -64,6 +65,11 @@ const SocialItems = styled.div`
     color: #fff;
     font-size: 2.3rem;
     margin-right: 2rem;
+
+    &:hover{
+        color: gold;
+        cursor: pointer;
+    }
 `
 
 
@@ -73,17 +79,17 @@ const Footer = () => {
         <Container>
             <Wrapper>
                 <FooterItems>
-                    <LogoContainer>
+                   <LogoContainer>
                         <Link to='/'> <Logo src={ LogoImg } /> </Link>
-                        <LogoSpan> GamBull Tracker </LogoSpan>
+                        <LogoLink to='/'> GamBull Tracker </LogoLink>
                     </LogoContainer>
                 </FooterItems>
 
                 <FooterItems>
                     <NavList>
-                        <NavItem to='/'> Home </NavItem>
-                        <NavItem to='/transactions'> Transactions </NavItem>
+                        <NavItem to='/bets'> Bets </NavItem>
                         <NavItem to='/stats'> Stats </NavItem>
+                        <NavItem to='/add-bet'> Add Bet </NavItem>
                     </NavList>
                 </FooterItems>
 
