@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
 import HeroImg from '../assets/bg3.jpg'
 

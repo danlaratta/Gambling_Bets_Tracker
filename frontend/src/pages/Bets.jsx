@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
 import HeroImg from '../assets/bg1.jpg'
+import axios from 'axios'
+
 
 const Container = styled.div`
     width: 100%;
@@ -44,10 +46,24 @@ const CardsContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+`
+
+const CardItems = styled.div`
+   margin: 2rem 0rem;
 `
 
 const Bets = () => {
+    const [bets, setBets] = useState([])
+
+    useEffect(() => {
+        const getBets = async () => {
+            const res = await axios.get('http://localhost:3001/api/bets/')
+            setBets(res.data)
+        }
+
+        getBets()
+    }, [])
+
     return (
         <Container>
             <Wrapper>
@@ -61,11 +77,19 @@ const Bets = () => {
                     <BodyWrapper>
                         <BodyTitle> Your Bets </BodyTitle>
 
-                        <CardsContainer>
-                            <BetCard />
-                            <BetCard />
-                            <BetCard />
-                        </CardsContainer>
+                        { bets.map((bet) => (
+                            <CardsContainer key={bet._id}>
+                                <CardItems>
+                                    <BetCard 
+                                        desc= {bet.desc}
+                                        wager= {bet.wager}
+                                        outcome= {bet.outcome}
+                                        payout= {bet.payout}
+                                        createdAt= {bet.createdAt}
+                                    />
+                                </CardItems>
+                            </CardsContainer>
+                        ))}
                     </BodyWrapper>
                 </BodyContainer>
             </Wrapper>

@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import moment from 'moment'
+
 
 const Container = styled.div`
     width: 100%;
@@ -47,20 +49,21 @@ const Text = styled.div`
 `
 
 
-const BetCard = () => {
+const BetCard = ({desc, createdAt, wager, outcome, payout}) => {
+
     return (
         <Container>
             <Wrapper>
                 <CardContainer>
                     <TopSection>
-                        <Desc> NY Giants to win vs NY Jets </Desc>
-                        <Date> 5 hours ago </Date>
+                        <Desc> {desc} </Desc>
+                        <Date> {moment(createdAt).fromNow()} </Date>
                     </TopSection>
 
                     <BottomSection>
-                        <Text> <b> Wager:  </b> $20 </Text>
-                        <Text> <b> Outcome: </b> Won </Text>
-                        <Text> <b> Paid:  </b> $35 </Text>
+                        <Text> <b> Wager:  </b> { `$${wager}`} </Text>
+                        <Text> <b> Outcome: </b> {outcome} </Text>
+                        <Text> <b> Paid:  </b> { `$${payout}`} </Text>
                     </BottomSection>
                 </CardContainer>
             </Wrapper>

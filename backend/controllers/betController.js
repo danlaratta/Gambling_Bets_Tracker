@@ -48,7 +48,11 @@ const getAllBets = async (req, res) => {
             throw new Error('No bets exist')
         }
 
-        res.status(200).json(allBets)
+        res.status(200).json(allBets
+            .sort((a, b) => {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            })
+        )
     } catch (error) {
         res.status(500)
         throw new Error(error)

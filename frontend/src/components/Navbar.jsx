@@ -92,7 +92,6 @@ const Navbar = () => {
     }
 
     window.addEventListener('scroll', changeBgColor)
-    console.log(bgColor)
 
     return (
         // <Container style={{backgroundColor: bgColor ? 'red' : 'blue'}}>

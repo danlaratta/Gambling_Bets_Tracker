@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import HeroImg from '../assets/HeroImg.jpg'
 import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
+import axios from 'axios'
 
 const Container = styled.div`
     width: 100%;
@@ -47,8 +48,24 @@ const CardsContainer = styled.div`
     gap: 5rem;
 `
 
+const CardItems = styled.div`
+   margin: 2rem 0rem;
+`
+
 
 const Home = () => {
+
+    const [bets, setBets] = useState([])
+
+    useEffect(() => {
+        const getBets = async () => {
+            const res = await axios.get('http://localhost:3001/api/bets/')
+            setBets(res.data)
+        }
+
+        getBets()
+    }, [])
+
     return (
         <Container>
             <Wrapper>
@@ -62,11 +79,19 @@ const Home = () => {
                     <BodyWrapper>
                         <BodyTitle> Recent Bets </BodyTitle>
 
-                        <CardsContainer>
-                            <BetCard />
-                            <BetCard />
-                            <BetCard />
-                        </CardsContainer>
+                        { bets.slice(0, 3).map((bet) => (
+                            <CardsContainer key={bet._id}>
+                                <CardItems>
+                                    <BetCard 
+                                        desc= {bet.desc}
+                                        wager= {bet.wager}
+                                        outcome= {bet.outcome}
+                                        payout= {bet.payout}
+                                        createdAt= {bet.createdAt}
+                                    />
+                                </CardItems>
+                            </CardsContainer>
+                        ))}
                     </BodyWrapper>
                 </BodyContainer>
 
