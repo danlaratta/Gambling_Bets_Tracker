@@ -69,7 +69,7 @@ const Bets = () => {
             <Wrapper>
                 <HeroImage />
                 <Hero 
-                    title='Bet Transactions' 
+                    title='Bets History' 
                     desc='All of your previous bets in one location'
                 />
 

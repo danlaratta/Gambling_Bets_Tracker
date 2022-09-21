@@ -6,11 +6,13 @@ import BetStats from './pages/BetStats'
 import Bets from './pages/Bets'
 import Home from './pages/Home'
 import NewBet from './pages/NewBet'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <Navbar />
 
         <Routes>
@@ -23,6 +25,7 @@ function App() {
         <Footer />
         
       </Router>
+
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import HeroNoBtn from '../components/HeroNoBtn'
 import HeroImg from '../assets/bg3.jpg'
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
+import SuccessModal from '../components/SuccessModal'
 
 const Container = styled.div`
     width: 100%;
@@ -107,21 +108,12 @@ const Btn = styled.button`
     }
 `
 
-const SuccessMsg = styled.span`
-    font-size: 1.4rem;
-    color: #00df07;
-`
-
 const ErrorMsg = styled.span`
     font-size: 1.4rem;
     color: #ff0000;
 `
 
 const NewBet = () => {
-    // const [descVal, setDescVal] = useState('')
-    // const [wagerVal, setWagerVal] = useState(0)
-    // const [outcomeVal, setOutcomeVal] = useState('')
-    // const [payoutVal, setPayoutVal] = useState(0)
 
     const [formData, setFormData] = useState({
         desc: '',
@@ -147,25 +139,36 @@ const NewBet = () => {
     const handleForm = async (e) => {
         e.preventDefault()
 
-        const newBet = {
-            desc: desc,
-            wager: wager,
-            outcome: outcome,
-            payout: payout,
-        }
+        // const newBet = {
+        //     desc: desc,
+        //     wager: wager,
+        //     outcome: outcome,
+        //     payout: payout,
+        // }
 
-        try {
-            await axios.post('http://localhost:3001/api/bets/', newBet)
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     await axios.post('http://localhost:3001/api/bets/', newBet)
+        //     setIsSuccess(true)
+        // } catch (error) {
+        //     console.log(error)
+        // }
 
-        // setIsSuccess(true)
-
-        // setTimeout(() => {
-        //     navigate('/bets')
-        // }, '2000')
+        // if(isSuccess === true){
+        //     setTimeout(() => {
+        //         navigate('/bets')
+        //     }, '2000')
+        // }
+        setIsSuccess(true)
     }
+
+    useEffect(() => {
+        if(isSuccess === true){
+            setTimeout(() => {
+                navigate('/bets')
+            }, '2000')
+        }
+    }, [isSuccess])
+
     return (
         <Container>
             <Wrapper>
@@ -175,13 +178,13 @@ const NewBet = () => {
                     desc='Add your newly placed bets'
                 />
 
+                { isSuccess && <SuccessModal />}
+
                 <BodyContainer>
                     <BodyWrapper>
                         <FormContainer>
                             <BetForm onSubmit={handleForm}>
                                 <FormTitle> New Bet </FormTitle>
-
-                                { isSuccess && <SuccessMsg> Bet Successfully Submitted </SuccessMsg>}
 
                                 <BetInput 
                                     type='text'
