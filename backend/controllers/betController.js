@@ -9,15 +9,16 @@ const createBet = async (req, res) => {
     try {
         if(!req.body){
             res.status(400)
-            throw new Error('Must fill out required fields')
+            res.json({error: 'Must fill out required fields'})
         }
-
-        await bet.save()
-
+        else{
+            await bet.save()
+        }
+        
         res.status(200).json(bet)
     } catch (error) {
         res.status(500)
-        throw new Error(error)
+        res.json({error: error.message})
     }
 }
 
@@ -28,13 +29,13 @@ const getBet = async (req, res) => {
 
         if(!bet){
             res.status(400)
-            throw new Error('Bet does not exist')
+            res.json({error: 'Bet does not exist'})
         }
 
         res.status(200).json(bet)
     } catch (error) {
         res.status(500)
-        throw new Error(error)
+        res.json({error: error.message})
     }
 }
 
@@ -45,7 +46,7 @@ const getAllBets = async (req, res) => {
 
         if(!allBets){
             res.status(400)
-            throw new Error('No bets exist')
+            res.json({error: 'No bets not exist'})
         }
 
         res.status(200).json(allBets
@@ -55,7 +56,7 @@ const getAllBets = async (req, res) => {
         )
     } catch (error) {
         res.status(500)
-        throw new Error(error)
+        res.json({error: error.message})
     }
 }
 
@@ -66,7 +67,7 @@ const updateBet = async (req, res) => {
 
         if(!bet){
             res.status(400)
-            throw new Error('Bet does not exist')
+            res.json({error: 'Bet does not exist'})
         }
 
         // const updatedBet = await bet.updateOne({ $set: req.body })
@@ -76,7 +77,7 @@ const updateBet = async (req, res) => {
         
     } catch (error) {
         res.status(500)
-        throw new Error(error)
+        res.json({error: error.message})
     }
 }
 
@@ -87,7 +88,7 @@ const deleteBet = async (req, res) => {
 
         if(!bet){
             res.status(400)
-            throw new Error('Bet does not exist')
+            res.json({error: 'Bet does not exist'})
         }
 
         await bet.deleteOne()
@@ -96,7 +97,7 @@ const deleteBet = async (req, res) => {
         
     } catch (error) {
         res.status(500)
-        throw new Error(error)
+        res.json({error: error.message})
     }
 }
 

@@ -3,9 +3,6 @@ import styled from 'styled-components/macro'
 import HeroNoBtn from '../components/HeroNoBtn'
 import HeroImg from '../assets/bg3.jpg'
 import axios from 'axios'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 import SuccessModal from '../components/SuccessModal'
 
@@ -108,12 +105,13 @@ const Btn = styled.button`
     }
 `
 
-const ErrorMsg = styled.span`
-    font-size: 1.4rem;
-    color: #ff0000;
-`
+// const ErrorMsg = styled.span`
+//     font-size: 1.4rem;
+//     color: #ff0000;
+// `
 
 const NewBet = () => {
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const [formData, setFormData] = useState({
         desc: '',
@@ -123,8 +121,6 @@ const NewBet = () => {
     })
 
     const {desc, wager, outcome, payout} = formData
-
-    const [isSuccess, setIsSuccess] = useState(false)
 
     const navigate = useNavigate()
     
@@ -148,6 +144,7 @@ const NewBet = () => {
 
         try {
             await axios.post('http://localhost:3001/api/bets/', newBet)
+
             setIsSuccess(true)
         } catch (error) {
             console.log(error)
@@ -161,7 +158,7 @@ const NewBet = () => {
                 navigate('/bets')
             }, '2000')
         }
-    }, [isSuccess])
+    }, [isSuccess, navigate])
 
     return (
         <Container>
