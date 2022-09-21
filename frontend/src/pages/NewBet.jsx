@@ -139,29 +139,23 @@ const NewBet = () => {
     const handleForm = async (e) => {
         e.preventDefault()
 
-        // const newBet = {
-        //     desc: desc,
-        //     wager: wager,
-        //     outcome: outcome,
-        //     payout: payout,
-        // }
+        const newBet = {
+            desc: desc,
+            wager: wager,
+            outcome: outcome,
+            payout: payout,
+        }
 
-        // try {
-        //     await axios.post('http://localhost:3001/api/bets/', newBet)
-        //     setIsSuccess(true)
-        // } catch (error) {
-        //     console.log(error)
-        // }
-
-        // if(isSuccess === true){
-        //     setTimeout(() => {
-        //         navigate('/bets')
-        //     }, '2000')
-        // }
-        setIsSuccess(true)
+        try {
+            await axios.post('http://localhost:3001/api/bets/', newBet)
+            setIsSuccess(true)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
+        
         if(isSuccess === true){
             setTimeout(() => {
                 navigate('/bets')
