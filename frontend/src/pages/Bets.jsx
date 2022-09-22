@@ -4,6 +4,8 @@ import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
 import HeroImg from '../assets/bg1.jpg'
 import axios from 'axios'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 
 const Container = styled.div`
@@ -42,18 +44,24 @@ const BodyTitle = styled.span`
     padding-bottom: 4rem;
 `
 
-const CardsContainer = styled.div`
+const CardsContainer = styled(motion.div)`
     width: 100%;
     display: flex;
     flex-direction: column;
 `
 
-const CardItems = styled.div`
+const CardItems = styled(motion.div)`
    margin: 2rem 0rem;
 `
 
 const Bets = () => {
     const [bets, setBets] = useState([])
+
+    const controls = useAnimation()
+    const reviewControls = useAnimation()
+
+    const [ref, inView] = useInView()
+    const [reviewInView] = useInView()
 
     useEffect(() => {
         const getBets = async () => {
@@ -62,7 +70,48 @@ const Bets = () => {
         }
 
         getBets()
-    }, [])
+
+        if(inView){
+            controls.start('show')
+        }
+
+        if(reviewInView){
+            reviewControls.start('show')
+        }
+    }, [controls, inView, reviewControls, reviewInView])
+
+
+    // VARIANTS
+    const CardsContainerVariants = {
+        hidden: {
+            opacity: 0,
+        },
+    
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { 
+                duration: 1.5,
+                staggerChildren: 0.8,
+                 
+            }
+        }
+    }
+    
+    const CardsVariants = {
+        hidden: {
+            x: -100,
+            opacity: 0,
+        },
+    
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { 
+                duration: 1, 
+            }
+        }
+    }
 
     return (
         <Container>
@@ -77,9 +126,17 @@ const Bets = () => {
                     <BodyWrapper>
                         <BodyTitle> Your Bets </BodyTitle>
 
-                        { bets.map((bet) => (
-                            <CardsContainer key={bet._id}>
-                                <CardItems>
+                        <CardsContainer 
+                            variants={ CardsContainerVariants }
+                            initial= 'hidden'
+                            animate= {controls}
+                            ref={ref}
+                        >
+                            { bets.map((bet) => (
+                                <CardItems
+                                    key={bet._id}
+                                    variants={ CardsVariants }
+                                >
                                     <BetCard 
                                         desc= {bet.desc}
                                         wager= {bet.wager}
@@ -88,8 +145,8 @@ const Bets = () => {
                                         createdAt= {bet.createdAt}
                                     />
                                 </CardItems>
-                            </CardsContainer>
-                        ))}
+                            ))}
+                        </CardsContainer>
                     </BodyWrapper>
                 </BodyContainer>
             </Wrapper>

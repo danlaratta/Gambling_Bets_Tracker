@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 import HeroImg from '../assets/bg2.jpg'
 import Hero from '../components/Hero'
 import SummaryCard from '../components/SummaryCard'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 const Container = styled.div`
     width: 100%;
@@ -40,7 +42,43 @@ const BodyTitle = styled.span`
     padding-bottom: 4rem;
 `
 
+const SummaryContainer = styled(motion.div)`
+    width: 100%;
+`
+
 const BetStats = () => {
+    const controls = useAnimation()
+    const reviewControls = useAnimation()
+
+    const [ref, inView] = useInView()
+    const [ reviewInView] = useInView()
+
+    useEffect(() => {
+        if(inView){
+            controls.start('show')
+        }
+
+        if(reviewInView){
+            reviewControls.start('show')
+        }
+    }, [controls, inView, reviewControls, reviewInView])
+
+// VARIANTS
+const SummaryVariants = {
+    hidden: {
+        opacity: 0,
+    },
+
+    show: {
+        opacity: 1,
+        transition: { 
+            delay: 0.3,
+            duration: 1,
+             
+        }
+    }
+}
+
     return (
         <Container>
             <Wrapper>
@@ -54,7 +92,14 @@ const BetStats = () => {
                     <BodyWrapper>
                         <BodyTitle> Your Stats </BodyTitle>
 
-                        <SummaryCard />
+                        <SummaryContainer
+                            variants={ SummaryVariants }
+                            initial= 'hidden'
+                            animate= {controls}
+                            ref={ref}
+                        >
+                            <SummaryCard />
+                        </SummaryContainer>
                     </BodyWrapper>
                 </BodyContainer>
             </Wrapper>

@@ -86,7 +86,7 @@ const AuthText = styled.span`
     padding-right: 1rem;
 `
 
-// MOTION VARIANTS
+// VARIANTS
 const NavVariant = {
     hidden: {
         y: -100,
@@ -98,7 +98,6 @@ const NavVariant = {
         y: 0,
         transition: { 
             duration: 1,
-            staggerChildren: .5,
         }
     }
 }

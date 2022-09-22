@@ -4,6 +4,8 @@ import HeroImg from '../assets/HeroImg.jpg'
 import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
 import axios from 'axios'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 const Container = styled.div`
     width: 100%;
@@ -41,14 +43,14 @@ const BodyTitle = styled.span`
     padding-bottom: 4rem;
 `
 
-const CardsContainer = styled.div`
+const CardsContainer = styled(motion.div)`
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 2rem;
 `
 
-const CardItems = styled.div`
+const CardItems = styled(motion.div)`
    margin: 2rem 0rem;
 `
 
@@ -57,6 +59,12 @@ const Home = () => {
 
     const [bets, setBets] = useState([])
 
+    const controls = useAnimation()
+    const reviewControls = useAnimation()
+
+    const [ref, inView] = useInView()
+    const [reviewInView] = useInView()
+
     useEffect(() => {
         const getBets = async () => {
             const res = await axios.get('http://localhost:3001/api/bets/')
@@ -64,8 +72,50 @@ const Home = () => {
         }
 
         getBets()
-    }, [])
 
+        if(inView){
+            controls.start('show')
+        }
+
+        if(reviewInView){
+            reviewControls.start('show')
+        }
+
+
+    }, [controls, inView, reviewControls, reviewInView])
+
+    // VARIANTS
+    const CardsContainerVariants = {
+        hidden: {
+            opacity: 0,
+        },
+    
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { 
+                duration: 1.5,
+                staggerChildren: 1,
+                 
+            }
+        }
+    }
+    
+    const CardsVariants = {
+        hidden: {
+            x: -100,
+            opacity: 0,
+        },
+    
+        show: {
+            opacity: 1,
+            x: 0,
+            transition: { 
+                duration: 1, 
+            }
+        }
+    }
+    
     return (
         <Container>
             <Wrapper>
@@ -79,9 +129,17 @@ const Home = () => {
                     <BodyWrapper>
                         <BodyTitle> Recent Bets </BodyTitle>
 
-                        { bets.slice(0, 3).map((bet) => (
-                            <CardsContainer key={bet._id}>
-                                <CardItems>
+                        <CardsContainer 
+                            variants={ CardsContainerVariants }
+                            initial= 'hidden'
+                            animate= {controls}
+                            ref={ref}
+                        >
+                            { bets.slice(0, 3).map((bet) => (
+                                <CardItems 
+                                    key={bet._id} 
+                                    variants={ CardsVariants }
+                                >
                                     <BetCard 
                                         desc= {bet.desc}
                                         wager= {bet.wager}
@@ -90,8 +148,8 @@ const Home = () => {
                                         createdAt= {bet.createdAt}
                                     />
                                 </CardItems>
-                            </CardsContainer>
-                        ))}
+                            ))}
+                        </CardsContainer>
                     </BodyWrapper>
                 </BodyContainer>
 

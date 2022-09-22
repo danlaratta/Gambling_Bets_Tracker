@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 import LogoImg from '../assets/logo.png'
 import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
+import { motion } from 'framer-motion'
 
 const Container = styled.div`
     width: 100%;
@@ -45,6 +46,9 @@ const NavList = styled.div`
     justify-content: space-around;
 `
 
+const LinkContainer = styled(motion.div)`
+
+`
 
 const NavItem = styled(Link)`
     color: #fff;
@@ -72,9 +76,20 @@ const SocialItems = styled.div`
     }
 `
 
+// VARIANTS
+const LinkVariants = {
+    hover: {
+        scale: 1.1,
+        transition: {
+            duration: 0.4,
+            yoyo: Infinity
+        }
+    }
+}
 
 
 const Footer = () => {
+
     return (
         <Container>
             <Wrapper>
@@ -86,10 +101,10 @@ const Footer = () => {
                 </FooterItems>
 
                 <FooterItems>
-                    <NavList>
-                        <NavItem to='/bets'> Bets </NavItem>
-                        <NavItem to='/stats'> Stats </NavItem>
-                        <NavItem to='/add-bet'> Add Bet </NavItem>
+                    <NavList variants= {LinkVariants}>
+                        <LinkContainer> <NavItem to='/bets'> Bets </NavItem> </LinkContainer>
+                        <LinkContainer> <NavItem to='/stats'> Stats </NavItem> </LinkContainer>
+                        <LinkContainer> <NavItem to='/add-bet'> Add Bet </NavItem> </LinkContainer>
                     </NavList>
                 </FooterItems>
 

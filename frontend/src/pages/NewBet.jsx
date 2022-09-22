@@ -5,6 +5,8 @@ import HeroImg from '../assets/bg3.jpg'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import SuccessModal from '../components/SuccessModal'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 const Container = styled.div`
     width: 100%;
@@ -42,7 +44,7 @@ const FormTitle = styled.span`
     padding-bottom: 4rem;
 `
 
-const FormContainer = styled.div`
+const FormContainer = styled(motion.div)`
     width: 100%;
     display: flex;
     justify-content: center;
@@ -105,11 +107,6 @@ const Btn = styled.button`
     }
 `
 
-// const ErrorMsg = styled.span`
-//     font-size: 1.4rem;
-//     color: #ff0000;
-// `
-
 const NewBet = () => {
     const [isSuccess, setIsSuccess] = useState(false)
 
@@ -123,6 +120,12 @@ const NewBet = () => {
     const {desc, wager, outcome, payout} = formData
 
     const navigate = useNavigate()
+
+    const controls = useAnimation()
+    const reviewControls = useAnimation()
+
+    const [ref, inView] = useInView()
+    const [reviewInView] = useInView()
     
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -158,7 +161,32 @@ const NewBet = () => {
                 navigate('/bets')
             }, '2000')
         }
-    }, [isSuccess, navigate])
+
+        if(inView){
+            controls.start('show')
+        }
+
+        if(reviewInView){
+            reviewControls.start('show')
+        }
+    }, [isSuccess, navigate, controls, inView, reviewControls, reviewInView])
+
+
+// VARIANTS
+const FormVariants = {
+    hidden: {
+        opacity: 0,
+    },
+
+    show: {
+        opacity: 1,
+        transition: { 
+            delay: 0.3,
+            duration: 1,
+             
+        }
+    }
+}
 
     return (
         <Container>
@@ -173,7 +201,12 @@ const NewBet = () => {
 
                 <BodyContainer>
                     <BodyWrapper>
-                        <FormContainer>
+                        <FormContainer 
+                            variants={ FormVariants }
+                            initial= 'hidden'
+                            animate= {controls}
+                            ref={ref}
+                        >
                             <BetForm onSubmit={handleForm}>
                                 <FormTitle> New Bet </FormTitle>
 
