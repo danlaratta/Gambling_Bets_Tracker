@@ -44,6 +44,17 @@ const BodyTitle = styled.span`
     padding-bottom: 4rem;
 `
 
+const BetSelect = styled.select`
+    padding: 1rem 2.8rem;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+`
+
+const BetOption = styled.option`
+    padding: 1rem 2.8rem;
+    font-size: 1.6rem;
+`
+
 const CardsContainer = styled(motion.div)`
     width: 100%;
     display: flex;
@@ -56,6 +67,7 @@ const CardItems = styled(motion.div)`
 
 const Bets = () => {
     const [bets, setBets] = useState([])
+    const [betType, setBetType] = useState('all')
 
     const controls = useAnimation()
     const reviewControls = useAnimation()
@@ -63,13 +75,16 @@ const Bets = () => {
     const [ref, inView] = useInView()
     const [reviewInView] = useInView()
 
+
     useEffect(() => {
         const getBets = async () => {
-            const res = await axios.get('http://localhost:3001/api/bets/')
+            const res = await axios.get(`http://localhost:3001/api/bets/${betType}`)
             setBets(res.data)
         }
 
         getBets()
+        console.log(betType)
+
 
         if(inView){
             controls.start('show')
@@ -78,10 +93,10 @@ const Bets = () => {
         if(reviewInView){
             reviewControls.start('show')
         }
-    }, [controls, inView, reviewControls, reviewInView])
-
+    }, [betType, controls, inView, reviewControls, reviewInView])
 
     // VARIANTS
+
     const CardsContainerVariants = {
         hidden: {
             opacity: 0,
@@ -126,6 +141,12 @@ const Bets = () => {
                     <BodyWrapper>
                         <BodyTitle> Your Bets </BodyTitle>
 
+                        <BetSelect value={betType} onChange= {(e) => setBetType(e.target.value)}>
+                            <BetOption value='all'> All Bets </BetOption>
+                            <BetOption value='wins'> Won Bets </BetOption>
+                            <BetOption value='losses'> Lost Bets </BetOption>
+                        </BetSelect>
+
                         <CardsContainer 
                             variants={ CardsContainerVariants }
                             initial= 'hidden'
@@ -155,3 +176,9 @@ const Bets = () => {
 }
 
 export default Bets
+
+
+
+/*
+
+ */

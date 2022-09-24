@@ -22,17 +22,34 @@ const createBet = async (req, res) => {
     }
 }
 
-// GET BET
-const getBet = async (req, res) => {
+// GET LOST BETS
+const getLostBets = async (req, res) => {
     try {
-        const bet = await Bet.findById(req.params.id)
+        const bet = await Bet.where('outcome').equals('Lost')
 
         if(!bet){
             res.status(400)
             res.json({error: 'Bet does not exist'})
         }
 
-        res.status(200).json(bet)
+    res.status(200).json(bet)
+    } catch (error) {
+        res.status(500)
+        res.json({error: error.message})
+    }
+}
+
+// GET WON BETS
+const getWonBets = async (req, res) => {
+    try {
+        const bet = await Bet.where('outcome').equals('Won')
+
+        if(!bet){
+            res.status(400)
+            res.json({error: 'Bet does not exist'})
+        }
+
+    res.status(200).json(bet)
     } catch (error) {
         res.status(500)
         res.json({error: error.message})
@@ -103,7 +120,8 @@ const deleteBet = async (req, res) => {
 
 module.exports = {
     createBet,
-    getBet,
+    getLostBets,
+    getWonBets,
     getAllBets,
     updateBet,
     deleteBet,
