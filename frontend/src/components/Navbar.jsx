@@ -106,8 +106,9 @@ const LinkVariants = {
     hover: {
         scale: 1.1,
         transition: {
-            duration: 0.4,
-            yoyo: Infinity
+            duration: 0.8,
+            repeat: Infinity,
+            repeatType: 'mirror',
         }
     }
 }

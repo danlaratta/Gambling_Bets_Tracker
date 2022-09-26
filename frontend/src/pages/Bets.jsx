@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
@@ -69,11 +69,11 @@ const Bets = () => {
     const [bets, setBets] = useState([])
     const [betType, setBetType] = useState('all')
 
+    const title = useRef()
+
     const controls = useAnimation()
-    const reviewControls = useAnimation()
 
     const [ref, inView] = useInView()
-    const [reviewInView] = useInView()
 
 
     useEffect(() => {
@@ -90,13 +90,17 @@ const Bets = () => {
             controls.start('show')
         }
 
-        if(reviewInView){
-            reviewControls.start('show')
-        }
-    }, [betType, controls, inView, reviewControls, reviewInView])
+    }, [betType, controls, inView])
+
+    const handleSelect = (e) => {
+        setBetType(e.target.value)
+        // title.current.scrollIntoView({ behavior: "smooth" });
+        // window.scrollTo(0, 300)
+        window.scrollTo({ top: 230, behavior: 'smooth' })
+    }
+
 
     // VARIANTS
-
     const CardsContainerVariants = {
         hidden: {
             opacity: 0,
@@ -123,7 +127,7 @@ const Bets = () => {
             opacity: 1,
             x: 0,
             transition: { 
-                duration: 1, 
+                duration: 0.8, 
             }
         }
     }
@@ -141,7 +145,7 @@ const Bets = () => {
                     <BodyWrapper>
                         <BodyTitle> Your Bets </BodyTitle>
 
-                        <BetSelect value={betType} onChange= {(e) => setBetType(e.target.value)}>
+                        <BetSelect value={betType} onChange= {handleSelect}>
                             <BetOption value='all'> All Bets </BetOption>
                             <BetOption value='wins'> Won Bets </BetOption>
                             <BetOption value='losses'> Lost Bets </BetOption>
@@ -176,9 +180,3 @@ const Bets = () => {
 }
 
 export default Bets
-
-
-
-/*
-
- */

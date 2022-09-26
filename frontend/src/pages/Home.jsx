@@ -60,14 +60,12 @@ const Home = () => {
     const [bets, setBets] = useState([])
 
     const controls = useAnimation()
-    const reviewControls = useAnimation()
 
     const [ref, inView] = useInView()
-    const [reviewInView] = useInView()
 
     useEffect(() => {
         const getBets = async () => {
-            const res = await axios.get('http://localhost:3001/api/bets/')
+            const res = await axios.get('http://localhost:3001/api/bets/all')
             setBets(res.data)
         }
 
@@ -77,12 +75,8 @@ const Home = () => {
             controls.start('show')
         }
 
-        if(reviewInView){
-            reviewControls.start('show')
-        }
 
-
-    }, [controls, inView, reviewControls, reviewInView])
+    }, [controls, inView])
 
     // VARIANTS
     const CardsContainerVariants = {
@@ -111,7 +105,7 @@ const Home = () => {
             opacity: 1,
             x: 0,
             transition: { 
-                duration: 1, 
+                duration: 0.8, 
             }
         }
     }

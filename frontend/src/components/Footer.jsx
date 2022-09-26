@@ -81,8 +81,9 @@ const LinkVariants = {
     hover: {
         scale: 1.1,
         transition: {
-            duration: 0.4,
-            yoyo: Infinity
+            duration: 0.8,
+            repeat: Infinity,
+            repeatType: 'mirror',
         }
     }
 }
@@ -100,13 +101,29 @@ const Footer = () => {
                     </LogoContainer>
                 </FooterItems>
 
-                <FooterItems>
+                {/* <FooterItems>
                     <NavList variants= {LinkVariants}>
                         <LinkContainer> <NavItem to='/bets'> Bets </NavItem> </LinkContainer>
                         <LinkContainer> <NavItem to='/stats'> Stats </NavItem> </LinkContainer>
                         <LinkContainer> <NavItem to='/add-bet'> Add Bet </NavItem> </LinkContainer>
                     </NavList>
-                </FooterItems>
+                </FooterItems> */}
+
+                <FooterItems> 
+                        <NavList>
+                            <LinkContainer variants= {LinkVariants} whileHover= 'hover'> 
+                                <NavItem to='/bets'> Bets </NavItem>
+                            </LinkContainer>
+
+                            <LinkContainer variants= {LinkVariants} whileHover= 'hover'> 
+                                <NavItem to='/stats'> Stats </NavItem>
+                            </LinkContainer>
+
+                            <LinkContainer variants= {LinkVariants} whileHover= 'hover'> 
+                                <NavItem to='/add-bet'> Add Bet </NavItem>
+                            </LinkContainer>
+                        </NavList>
+                    </FooterItems>
 
                 <FooterItems>
                     <SocialContainer>

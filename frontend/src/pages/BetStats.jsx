@@ -48,20 +48,14 @@ const SummaryContainer = styled(motion.div)`
 
 const BetStats = () => {
     const controls = useAnimation()
-    const reviewControls = useAnimation()
 
     const [ref, inView] = useInView()
-    const [ reviewInView] = useInView()
 
     useEffect(() => {
         if(inView){
             controls.start('show')
         }
-
-        if(reviewInView){
-            reviewControls.start('show')
-        }
-    }, [controls, inView, reviewControls, reviewInView])
+    }, [controls, inView])
 
 // VARIANTS
 const SummaryVariants = {

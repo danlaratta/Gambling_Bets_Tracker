@@ -122,10 +122,8 @@ const NewBet = () => {
     const navigate = useNavigate()
 
     const controls = useAnimation()
-    const reviewControls = useAnimation()
 
     const [ref, inView] = useInView()
-    const [reviewInView] = useInView()
     
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -166,10 +164,7 @@ const NewBet = () => {
             controls.start('show')
         }
 
-        if(reviewInView){
-            reviewControls.start('show')
-        }
-    }, [isSuccess, navigate, controls, inView, reviewControls, reviewInView])
+    }, [isSuccess, navigate, controls, inView])
 
 
 // VARIANTS
