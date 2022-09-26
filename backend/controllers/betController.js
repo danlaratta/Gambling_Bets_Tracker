@@ -32,7 +32,12 @@ const getLostBets = async (req, res) => {
             res.json({error: 'Bet does not exist'})
         }
 
+        const totalLost = await db.bets.countDocuments({
+            'outcome': 'Lost'
+        })
+
     res.status(200).json(bet)
+    res.status(200).json(totalLost)
     } catch (error) {
         res.status(500)
         res.json({error: error.message})

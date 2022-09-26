@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import BetCard from '../components/BetCard'
 import Hero from '../components/Hero'
@@ -68,8 +68,6 @@ const CardItems = styled(motion.div)`
 const Bets = () => {
     const [bets, setBets] = useState([])
     const [betType, setBetType] = useState('all')
-
-    const title = useRef()
 
     const controls = useAnimation()
 
