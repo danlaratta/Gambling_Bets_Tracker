@@ -81,8 +81,6 @@ const Bets = () => {
         }
 
         getBets()
-        console.log(betType)
-
 
         if(inView){
             controls.start('show')

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import HeroImg from '../assets/bg2.jpg'
 import Hero from '../components/Hero'
 import SummaryCard from '../components/SummaryCard'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import axios from 'axios'
 
 const Container = styled.div`
     width: 100%;
@@ -47,15 +48,37 @@ const SummaryContainer = styled(motion.div)`
 `
 
 const BetStats = () => {
-    const controls = useAnimation()
+    const [totalBets, setTotalBets] = useState(0)
+    const [wonBets, setWonBets] = useState(0)
+    const [lostBets, setLostBets] = useState(0)
 
+    const controls = useAnimation()
     const [ref, inView] = useInView()
 
     useEffect(() => {
+        const getTotalBets = async () => {
+
+            try {
+                const res = await axios.get('http://localhost:3001/api/bets/stats/total')
+                setTotalBets(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+
+            const resWon = await axios.get('http://localhost:3001/api/bets/stats/won')
+            setWonBets(resWon.data)
+
+            const resLost = await axios.get('http://localhost:3001/api/bets/stats/lost')
+            setLostBets(resLost.data)
+        }
+
+        getTotalBets()
+
         if(inView){
             controls.start('show')
         }
-    }, [controls, inView])
+
+    }, [controls, inView, totalBets])
 
 // VARIANTS
 const SummaryVariants = {
@@ -92,7 +115,11 @@ const SummaryVariants = {
                             animate= {controls}
                             ref={ref}
                         >
-                            <SummaryCard />
+                            <SummaryCard 
+                                totalBets= {totalBets}
+                                totalWon= {wonBets}
+                                totalLost= {lostBets}
+                            />
                         </SummaryContainer>
                     </BodyWrapper>
                 </BodyContainer>

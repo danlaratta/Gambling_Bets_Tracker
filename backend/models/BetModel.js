@@ -21,7 +21,19 @@ const BetSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0,
-    }
+    },
+
+    // betsLost: {
+    //     type: Number,
+    // },
+
+    // betsWon: {
+    //     type: Number,
+    // },
+
+    // TotalBets: {
+    //     type: Number,
+    // },
 }, {timestamps: true})
 
 module.exports = mongoose.model('Bet', BetSchema)
