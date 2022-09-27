@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGODB, () => {
 })
 
 app.use('/api/bets', require('./routes/betRoutes'))
+app.use('/api/stats', require('./routes/statsRoutes'))
 
 app.listen(port, () => {
     console.log(`Server running on ${port}`)
