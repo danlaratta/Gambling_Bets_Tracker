@@ -47,7 +47,7 @@ const Value = styled.span`
 `
 
 
-const SummaryCard = ({totalLost, totalWon, totalBets, winnings}) => {
+const SummaryCard = ({totalLost, totalWon, totalBets, winnings, lost, earnings}) => {
     return (
         <Container>
             <Wrapper>
@@ -71,8 +71,8 @@ const SummaryCard = ({totalLost, totalWon, totalBets, winnings}) => {
                         </SectionItem>
 
                         <SectionItem>
-                            <Title> Total Losses: </Title>
-                            <Value> $1450 </Value>
+                            <Title> Total Lost: </Title>
+                            <Value> ${lost} </Value>
                         </SectionItem>
 
                     </SectionContainer>
@@ -85,7 +85,7 @@ const SummaryCard = ({totalLost, totalWon, totalBets, winnings}) => {
 
                         <SectionItem>
                             <Title> Overal Earnings: </Title>
-                            <Value> $1050 </Value>
+                            <Value> ${earnings} </Value>
                         </SectionItem>
                     </SectionContainer>
                 </CardContainer>

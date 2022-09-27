@@ -52,6 +52,8 @@ const BetStats = () => {
     const [wonBets, setWonBets] = useState(0)
     const [lostBets, setLostBets] = useState(0)
     const [winnings, setWinnings] = useState(0)
+    const [lost, setLost] = useState(0)
+    const [earnings, setEarnings] = useState(0)
 
     const controls = useAnimation()
     const [ref, inView] = useInView()
@@ -69,11 +71,18 @@ const BetStats = () => {
             const resWon = await axios.get('http://localhost:3001/api/stats/won')
             setWonBets(resWon.data)
 
-            const resLost = await axios.get('http://localhost:3001/api/stats/lost')
-            setLostBets(resLost.data)
+            const resLostBets = await axios.get('http://localhost:3001/api/stats/lost')
+            setLostBets(resLostBets.data)
 
-            const resWinnings = await axios.get('http://localhost:3001/api/stats/winnings')
+            const resWinnings = await axios.get('http://localhost:3001/api/stats/money_won')
             setWinnings(resWinnings.data)
+            
+            const resLost = await axios.get('http://localhost:3001/api/stats/money_lost')
+            setLost(resLost.data)
+
+            const resEarnings = await axios.get('http://localhost:3001/api/stats/earnings')
+            setEarnings(resEarnings.data)
+
         }
 
         getTotalBets()
@@ -124,6 +133,8 @@ const SummaryVariants = {
                                 totalWon= {wonBets}
                                 totalLost= {lostBets}
                                 winnings= {winnings}
+                                lost= {lost}
+                                earnings = {earnings}
                             />
                         </SummaryContainer>
                     </BodyWrapper>

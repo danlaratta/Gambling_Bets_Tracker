@@ -40,7 +40,7 @@ const getTotalLostBets = async (req, res) => {
 const getTotalWinnings = async (req, res) => {
 
     try {
-        const wonBets = await Bet.find({payout: {$gt: 0}}).where()
+        const wonBets = await Bet.find({payout: {$gt: 0}})
 
         const totalWinnings = wonBets.reduce(function(a, b){
             return a + b.payout;
@@ -54,9 +54,52 @@ const getTotalWinnings = async (req, res) => {
     }
 }
 
+const getTotalLost = async (req, res) => {
+
+    try {
+        const lostBets = await Bet.find({payout: 0})
+
+        const totalLost = lostBets.reduce(function(a, b){
+            return a + b.wager;
+        }, 0);
+
+        res.status(200).json(totalLost)
+
+    } catch (error) {
+        res.status(500)
+        res.json({error: error.message})
+    }
+}
+
+const getOverallEarnings = async (req, res) => {
+
+    try {
+        const wonBets = await Bet.find({payout: {$gt: 0}})
+        const lostBets = await Bet.find({payout: 0})
+
+        const totalLost = lostBets.reduce(function(a, b){
+            return a + b.wager;
+        }, 0);
+
+        const totalWinnings = wonBets.reduce(function(a, b){
+            return a + b.payout;
+        }, 0);
+
+        const earnings = totalWinnings - totalLost 
+
+        res.status(200).json(earnings)
+
+    } catch (error) {
+        res.status(500)
+        res.json({error: error.message})
+    }
+}
+
 module.exports = {
     getTotalBets,
     getTotalWonBets,
     getTotalLostBets,
     getTotalWinnings,
+    getTotalLost,
+    getOverallEarnings,
 }
