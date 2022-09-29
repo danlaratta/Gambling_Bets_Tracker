@@ -101,14 +101,6 @@ const Footer = () => {
                     </LogoContainer>
                 </FooterItems>
 
-                {/* <FooterItems>
-                    <NavList variants= {LinkVariants}>
-                        <LinkContainer> <NavItem to='/bets'> Bets </NavItem> </LinkContainer>
-                        <LinkContainer> <NavItem to='/stats'> Stats </NavItem> </LinkContainer>
-                        <LinkContainer> <NavItem to='/add-bet'> Add Bet </NavItem> </LinkContainer>
-                    </NavList>
-                </FooterItems> */}
-
                 <FooterItems> 
                         <NavList>
                             <LinkContainer variants= {LinkVariants} whileHover= 'hover'> 
