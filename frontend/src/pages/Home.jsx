@@ -197,6 +197,8 @@ const Home = () => {
 
     const [ref, inView] = useInView()
 
+    console.log(bets)
+
     useEffect(() => {
         const getBets = async () => {
             const res = await axios.get('http://localhost:3001/api/bets/all')
@@ -209,10 +211,7 @@ const Home = () => {
             controls.start('show')
         }
 
-
     }, [controls, inView])
-
-    console.log(bets)
 
     // VARIANTS
     const CardsContainerVariants = {
@@ -245,7 +244,7 @@ const Home = () => {
             }
         }
     }
-    
+   
     return (
         <Container>
             <Wrapper>
