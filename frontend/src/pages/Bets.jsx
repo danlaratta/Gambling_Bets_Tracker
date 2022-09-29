@@ -164,6 +164,7 @@ const Bets = () => {
                                         outcome= {bet.outcome}
                                         payout= {bet.payout}
                                         createdAt= {bet.createdAt}
+                                        id = {bet._id}
                                     />
                                 </CardItems>
                             ))}

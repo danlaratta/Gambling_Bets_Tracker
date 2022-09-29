@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import moment from 'moment'
 import { BsTrashFill } from 'react-icons/bs'
 import axios from 'axios'
+import { motion } from 'framer-motion'
 
 const Container = styled.div`
     width: 100%;
@@ -36,8 +37,10 @@ const Desc = styled.span`
     font-weight: bold;
 `
 
-const IconContainer = styled.button`
+const IconContainer = styled(motion.button)`
     font-size: 2.2rem;
+    border: none;
+    background-color: transparent;
 
     &:hover{
         cursor: pointer;
@@ -54,6 +57,17 @@ const Text = styled.div`
     font-size: 1.8rem;
 `
 
+// VARIANTS
+const LinkVariants = {
+    hover: {
+        scale: 1.2,
+        transition: {
+            duration: 0.8,
+            repeat: Infinity,
+            repeatType: 'mirror',
+        }
+    }
+}
 
 const BetCard = ({desc, createdAt, wager, outcome, payout, id}) => {
 
@@ -63,6 +77,8 @@ const BetCard = ({desc, createdAt, wager, outcome, payout, id}) => {
         } catch (error) {
             console.log(error)
         }
+
+        window.location.reload()
     } 
 
     return (
@@ -71,7 +87,7 @@ const BetCard = ({desc, createdAt, wager, outcome, payout, id}) => {
                 <CardContainer>
                     <TopSection>
                         <Desc> {desc} </Desc>
-                        <IconContainer> 
+                        <IconContainer variants= {LinkVariants} whileHover= 'hover'> 
                             <BsTrashFill onClick={() => handleDelete(id)} /> 
                             
                         </IconContainer>
